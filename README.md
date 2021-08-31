@@ -1,6 +1,10 @@
 # Dockerized Home Media Server
 
-My family has been building a Classic Movie Collection for about 30 years now. It started with my fathers vhs collection, which he would have you know rivaled blockbuster back in the day. Later, all the movies, including the ones that were continuing to be added were converted to dvd's. This, in response to redbox. We really did hate paying for content. With the advent of streaming services, we found [plex](plex.tv) and converted the entire collection to digital streaming. Now wherever we go we can have access to movies from [Great Train Robbery](https://en.wikipedia.org/wiki/The_Great_Train_Robbery_(1903_film)) to the end of the golden age and beginnings of film noir with [rebel without a cause](https://en.wikipedia.org/wiki/Rebel_Without_a_Cause) and [psycho](https://en.wikipedia.org/wiki/Psycho_(1960_film))
+My family has been building a Classic Movie Collection for about 30 years now. It started with my fathers VHS collection, which, he would have you know, rivaled blockbuster back in the day. 
+
+As the days of tapes and rewinding came to a close, all the movies, including the ones that were continuing to be added, were converted to dvd's. This seemed to perfectly correspond to the rise of redbox.
+
+Then, with the advent of the [plethora of streaming services](https://www.youtube.com/watch?v=TQLlnXc5Muc&t=24s), we found [plex](plex.tv) for maintaing and watching our collection and converted all the movies for digital streaming. Now wherever we go we can have access to movies from [Great Train Robbery](https://en.wikipedia.org/wiki/The_Great_Train_Robbery_(1903_film)) all the way to the end of the Golden Age and beginnings of film noir with movies such as [Rebel Without a Cause](https://en.wikipedia.org/wiki/Rebel_Without_a_Cause) and [Psycho](https://en.wikipedia.org/wiki/Psycho_(1960_film))
 
 ## Implementation:
 All of our servers run on [intel nuc's](https://www.intel.com/content/www/us/en/products/details/nuc.html). initial_install.sh merely puts dependecies for docker onto the machines when ubuntu server is first installed
