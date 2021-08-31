@@ -9,26 +9,15 @@ services:
             - /path/to/plex/Shows:/data/tvshows
             - /path/to/plex/transcode:/data/transcode
         network_mode: host
-        restart: always
+        restart: unless-stopped
         environment:
-            - VERSION=latest
+            - VERSION=docker
             - TZ=America/New_York
-    nzbget:
-        image: linuxserver/nzbget
-        container_name: nzbget
-        volumes:
-            - /path/to/nzbget/config:/config
-            - /path/to/nzbget/downloads:/downloads
-        restart: always
-        environment:
-            - TZ=America/New_York
-        ports:
-            - 6789:6789
+            - PUID=1000
+            - PGID=1000
     sonarr:
         image: linuxserver/sonarr
         container_name: sonarr
-        depends_on:
-            - nzbget
         volumes:
             - /path/to/sonarr/config:/config
             - /path/to/nzbget/downloads:/downloads
@@ -37,11 +26,11 @@ services:
             - TZ=America/New_York
         ports:
             - 8989:8989
+            - PUID=1000
+            - PGID=1000
     radarr:
         image: linuxserver/radarr
         container_name: radarr
-        depends_on:
-            - nzbget
         volumes:
             - /path/to/radarr/config:/config
             - /path/to/nzbget/downloads:/downloads
@@ -50,64 +39,16 @@ services:
             - TZ=America/New_York
         ports:
             - 7878:7878
-    overseerr:
-        image: sctx/overseerr:latest
-        container_name: overseerr
-        environment:
-            - LOG_LEVEL=info
-            - TZ=America/New_York
-        ports:
-            - 5055:5055
-        volumes:
-            - /path/to/overseerr/config:/app/config
-        restart: unless-stopped
-    letsencrypt:
-        image: linuxserver/letsencrypt
-        container_name: letsencrypt
-        ports:
-            - 443:443
-            # Only for validation, redirect all http traffic to https in config
-            - 80:80
-        volumes:
-            - /path/to/letsencrypt/config:/config
-        restart: always
-        depends_on:
-            - nzbget
-            - sonarr
-            - radarr
-        environment:
-            - TZ=America/New_York
-            - EMAIL=youremail@gmail.com
-            - URL=your.domain
-            - SUBDOMAINS=services
-            - ONLY_SUBDOMAINS=true
-            # tns validation doesn't work
-            - VALIDATION=http
-    # Still requires user to be added. See github for more details
-    timemachine:
-        image: odarriba/timemachine
-        container_name: timemachine
-        restart: unless-stopped
-        volumes:
-            - /path/to/timemachine:/timemachine
-        ports:
-            - 548:548
-            - 636:636
-        environment:
-            - AFP_SIZE_LIMIT=250000
-            - AFP_NAME=Backups
+            - PUID=1000
+            - PGID=1000
     portainer:
         image: portainer/portainer
         container_name: portainer
         ports:
             - 9000:9000
+            - 8000:8000
         volumes:
             - /path/to/portainer:/data
             - /var/run/docker.sock:/var/run/docker.sock
         restart: always
-    watchtower:
-        image: v2tec/watchtower
-        container_name: watchtower
-        restart: always
-        volumes:
-            - /var/run/docker.sock:/var/run/docker.sock
+    
